@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: install frontend dependencies
+        run: npm install
+
+      # Check Type correctness
+      - name: type check
+        run: npx vue-tsc --noEmit
+
+      # Build frontend to ensure no build errors
+      - name: build frontend
+        run: npm run build

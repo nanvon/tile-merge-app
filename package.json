@@ -1,0 +1,30 @@
+{
+  "name": "tile-merge-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "build:cn": "npm run tauri build && node scripts/rename-artifacts.mjs",
+    "build:win": "export PATH=\"/opt/homebrew/opt/llvm/bin:$PATH\" && tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc && node scripts/rename-artifacts.mjs",
+    "build:win:portable": "export PATH=\"/opt/homebrew/opt/llvm/bin:$PATH\" && tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc --no-bundle && node scripts/rename-artifacts.mjs"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2.4.2",
+    "@tauri-apps/plugin-opener": "^2",
+    "@types/leaflet": "^1.9.21",
+    "leaflet": "^1.9.4",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "vue-tsc": "^2.1.10"
+  }
+}
