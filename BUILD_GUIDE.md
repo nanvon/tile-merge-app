@@ -1,66 +1,84 @@
 # 📦 瓦片图合并工具构建指南
 
-## 1. 构建 macOS 应用
+## 构建产物
 
-在 macOS 上构建 .app 和 .dmg 安装包。
-
-```bash
-# 构建并自动重命名为中文
-npm run build:cn
-```
-
-**构建产物：**
-
-- `src-tauri/target/release/bundle/dmg/瓦片图合并工具_0.1.0_aarch64.dmg`
+| 平台          | 命令                | 产物                 |
+| ------------- | ------------------- | -------------------- |
+| macOS (M1)    | `npm run build:mac` | `瓦片图合并工具.app` |
+| Windows (x64) | `npm run build:win` | `瓦片图合并工具.exe` |
 
 ---
 
-## 2. 构建 Windows 便携版 (macOS 上交叉编译)
+## 1. 构建 macOS 应用
 
-在 macOS 上直接编译出 Windows 可用的 `.exe` 文件（无需安装，双击即用）。
+在 macOS 上构建 .app 程序包（仅 M1/ARM64 芯片）。
 
-**前置要求：**
-需要安装交叉编译工具链（仅需执行一次）：
+```bash
+npm run build:mac
+```
+
+**产物位置：**
+
+```text
+src-tauri/target/aarch64-apple-darwin/release/bundle/macos/瓦片图合并工具.app
+```
+
+---
+
+## 2. 构建 Windows 便携版
+
+在 macOS 上交叉编译 Windows 64 位便携版 `.exe`（无需安装，双击即用）。
+
+### 前置要求（仅需执行一次）
 
 ```bash
 # 1. 添加 Rust Windows 目标
 rustup target add x86_64-pc-windows-msvc
 
-# 2. 安装 cargo-xwin 工具
+# 2. 安装 cargo-xwin 交叉编译工具
 cargo install --locked cargo-xwin
 
-# 3. 安装 LLVM (提供 llvm-rc)
+# 3. 安装 LLVM（提供 llvm-rc）
 brew install llvm
 ```
 
-**构建命令：**
+### 构建命令
 
 ```bash
-# 交叉编译并自动重命名为中文
-npm run build:win:portable
+npm run build:win
 ```
 
-**构建产物：**
+**产物位置：**
 
-- `src-tauri/target/x86_64-pc-windows-msvc/release/瓦片图合并工具.exe`
+```text
+src-tauri/target/x86_64-pc-windows-msvc/release/瓦片图合并工具.exe
+```
 
 ---
 
-## 3. 应用配置 (可选)
+## 3. GitHub Actions 自动构建
 
-修改 `src-tauri/tauri.conf.json` 可调整应用名称和窗口大小：
+推送 `v*` 格式的 tag 会自动触发构建：
 
-```json
-{
-  "productName": "瓦片图合并工具",
-  "app": {
-    "windows": [
-      {
-        "title": "瓦片图合并工具",
-        "width": 1350,
-        "height": 900
-      }
-    ]
-  }
-}
+```bash
+git tag v0.1.0
+git push origin v0.1.0
 ```
+
+构建完成后，产物会自动上传到 GitHub Release：
+
+- macOS: `瓦片图合并工具_v0.1.0_aarch64.zip`（包含 .app）
+- Windows: `瓦片图合并工具.exe`
+
+---
+
+## 4. 配置说明
+
+修改 `src-tauri/tauri.conf.json` 可调整应用配置：
+
+| 配置项           | 说明                     |
+| ---------------- | ------------------------ |
+| `productName`    | 应用中文名               |
+| `version`        | 版本号                   |
+| `mainBinaryName` | 可执行文件名             |
+| `bundle.targets` | 打包目标（当前仅 "app"） |

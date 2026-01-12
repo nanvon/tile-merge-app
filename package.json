@@ -8,9 +8,9 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "build:cn": "npm run tauri build && node scripts/rename-artifacts.mjs",
-    "build:win": "export PATH=\"/opt/homebrew/opt/llvm/bin:$PATH\" && tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc && node scripts/rename-artifacts.mjs",
-    "build:win:portable": "export PATH=\"/opt/homebrew/opt/llvm/bin:$PATH\" && tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc --no-bundle && node scripts/rename-artifacts.mjs"
+    "build:mac": "tauri build --target aarch64-apple-darwin",
+    "build:win": "export PATH=\"/opt/homebrew/opt/llvm/bin:$PATH\" && tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc --no-bundle",
+    "version": "node -e \"const fs=require('fs');const p=require('./package.json');const t=JSON.parse(fs.readFileSync('src-tauri/tauri.conf.json'));t.version=p.version;fs.writeFileSync('src-tauri/tauri.conf.json',JSON.stringify(t,null,2)+'\\n');\" && git add src-tauri/tauri.conf.json"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
