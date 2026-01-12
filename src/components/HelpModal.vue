@@ -112,6 +112,10 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
               <section class="help-section">
                 <h3>📁 瓦片文件夹结构</h3>
                 <p>瓦片文件夹必须按照 XYZ 格式组织目录：</p>
+                <div class="tip-box tip-box--warning">
+                  <strong>重要：仅支持 PNG 格式</strong>的瓦片文件，不支持
+                  JPG、WebP 等其他格式。
+                </div>
                 <pre class="code-block">
 瓦片文件夹/
 ├── {z}/          ← 层级（zoom level）

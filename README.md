@@ -64,6 +64,8 @@ npm run build:win
 
 瓦片文件夹应包含以层级数字命名的子目录（XYZ 格式）：
 
+> ⚠️ **重要：仅支持 PNG 格式的瓦片文件**，不支持 JPG、WebP 等其他格式。
+
 ```text
 瓦片文件夹/
 ├── {z}/            ← 层级（zoom level）

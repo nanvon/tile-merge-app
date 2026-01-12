@@ -35,7 +35,7 @@ defineEmits<{
       <div class="folder-text">
         <span class="folder-name" :title="folder.path">{{ folder.name }}</span>
         <span class="folder-meta"
-          >{{ folder.tile_count.toLocaleString() }} 瓦片</span
+          >{{ folder.tile_count.toLocaleString() }} PNG</span
         >
       </div>
     </div>
