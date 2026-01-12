@@ -9,67 +9,38 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: macos-latest
-            target: aarch64-apple-darwin
-            name: macOS-arm64
-          - platform: windows-latest
-            target: x86_64-pc-windows-msvc
-            name: Windows-x64
-
-    runs-on: ${{ matrix.platform }}
-
+  build-macos:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }}
-
-      - name: Install frontend dependencies
-        run: npm install
-
-      # macOS Build: .app only
-      - name: Build macOS
-        if: matrix.platform == 'macos-latest'
-        run: npm run tauri build -- --target ${{ matrix.target }}
-
-      # Windows Build: portable exe only
-      - name: Build Windows
-        if: matrix.platform == 'windows-latest'
-        run: npm run tauri build -- --target ${{ matrix.target }} --no-bundle
-
-      # Upload macOS .app (zipped)
-      - name: Zip macOS app
-        if: matrix.platform == 'macos-latest'
+          targets: aarch64-apple-darwin
+      - run: npm install
+      - run: npm run tauri build -- --target aarch64-apple-darwin
+      - name: Package
         run: |
-          cd src-tauri/target/${{ matrix.target }}/release/bundle/macos
-          zip -r "TileMerge_${{ github.ref_name }}_macos_arm64.zip" TileMerge.app
-
-      - name: Upload macOS artifact
-        if: matrix.platform == 'macos-latest'
-        uses: softprops/action-gh-release@v1
+          cd src-tauri/target/aarch64-apple-darwin/release/bundle/macos
+          zip -r TileMerge.app.zip TileMerge.app
+      - uses: softprops/action-gh-release@v1
         with:
-          files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.zip
+          files: src-tauri/target/aarch64-apple-darwin/release/bundle/macos/TileMerge.app.zip
 
-      # Rename and upload Windows portable exe
-      - name: Rename Windows exe
-        if: matrix.platform == 'windows-latest'
-        run: |
-          mv src-tauri/target/${{ matrix.target }}/release/TileMerge.exe "src-tauri/target/${{ matrix.target }}/release/TileMerge_${{ github.ref_name }}_windows_x64.exe"
-
-      - name: Upload Windows artifact
-        if: matrix.platform == 'windows-latest'
-        uses: softprops/action-gh-release@v1
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          files: src-tauri/target/${{ matrix.target }}/release/TileMerge_*.exe
+          node-version: 20
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+      - run: npm install
+      - run: npm run tauri build -- --target x86_64-pc-windows-msvc --no-bundle
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: src-tauri/target/x86_64-pc-windows-msvc/release/TileMerge.exe
