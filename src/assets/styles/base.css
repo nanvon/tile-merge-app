@@ -1,5 +1,5 @@
 /**
- * Base Styles - Modern SaaS Enterprise UI
+ * Base Styles - Dark Theme for GIS Tool
  * 全局重置和通用组件样式
  */
 
@@ -24,7 +24,7 @@ body {
   font-weight: var(--font-normal);
   line-height: var(--leading-normal);
   color: var(--text-primary);
-  background: var(--bg-subtle);
+  background: var(--bg-base);
 }
 
 #app {
@@ -32,7 +32,7 @@ body {
   overflow: hidden;
 }
 
-/* ===== 按钮系统 - 统一的交互语言 ===== */
+/* ===== 按钮系统 - 现代深色主题 ===== */
 
 /* 按钮基础 */
 .btn {
@@ -54,7 +54,7 @@ body {
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -64,30 +64,38 @@ body {
   flex-shrink: 0;
 }
 
-/* 主要按钮 - 实心强调色 */
+/* 主要按钮 - 发光强调色 */
 .btn-primary {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #0d9488 100%);
   color: var(--text-inverse);
+  box-shadow: 0 2px 8px var(--color-accent-glow);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--color-accent-hover);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-hover) 0%,
+    var(--color-accent) 100%
+  );
+  box-shadow: 0 4px 16px var(--color-accent-glow);
+  transform: translateY(-1px);
 }
 
 .btn-primary:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 2px 8px var(--color-accent-glow);
 }
 
-/* 次要按钮 - 边框样式 */
+/* 次要按钮 - 边框发光样式 */
 .btn-secondary {
-  background: var(--bg-base);
+  background: var(--bg-elevated);
   color: var(--text-primary);
   border: 1px solid var(--border-default);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--bg-muted);
-  border-color: var(--color-gray-300);
+  background: var(--color-gray-700);
+  border-color: var(--color-gray-500);
 }
 
 /* 幽灵按钮 - 最小视觉干扰 */
@@ -97,7 +105,7 @@ body {
 }
 
 .btn-ghost:hover:not(:disabled) {
-  background: var(--bg-muted);
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
 
@@ -115,7 +123,7 @@ body {
 }
 
 .btn-icon:hover {
-  background: var(--bg-muted);
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
 
@@ -142,7 +150,7 @@ body {
 }
 
 .btn-icon-sm:hover:not(:disabled) {
-  background: var(--bg-muted);
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
 
@@ -164,7 +172,7 @@ input[type="number"] {
   font-size: var(--text-sm);
   font-family: var(--font-mono);
   color: var(--text-primary);
-  background: var(--bg-base);
+  background: var(--bg-muted);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
@@ -197,7 +205,7 @@ input[type="checkbox"] {
   font-size: var(--text-xs);
   font-weight: var(--font-medium);
   color: var(--text-secondary);
-  background: var(--bg-muted);
+  background: var(--bg-elevated);
   border-radius: var(--radius-full);
 }
 
@@ -208,4 +216,23 @@ input[type="checkbox"] {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+/* ===== 滚动条美化 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
 }

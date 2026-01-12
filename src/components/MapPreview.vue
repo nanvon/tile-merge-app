@@ -261,7 +261,7 @@ onUnmounted(() => destroyMap());
   position: relative;
   width: 100%;
   height: 100%;
-  background: #f9fafb;
+  background: var(--bg-muted);
 }
 
 .map-container {
@@ -279,11 +279,12 @@ onUnmounted(() => destroyMap());
   gap: 6px;
   height: 36px;
   padding: 0 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: rgba(17, 17, 19, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-default);
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -292,9 +293,9 @@ onUnmounted(() => destroyMap());
 }
 
 .btn-close-map:hover {
-  background: #fef2f2;
-  border-color: #fecaca;
-  color: #dc2626;
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: var(--color-error);
 }
 
 .btn-close-map svg {
@@ -319,11 +320,12 @@ onUnmounted(() => destroyMap());
   gap: 6px;
   height: 36px;
   padding: 0 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: rgba(17, 17, 19, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-default);
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -331,14 +333,14 @@ onUnmounted(() => destroyMap());
 }
 
 .zoom-controls button:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
+  background: rgba(39, 39, 42, 0.95);
+  border-color: var(--color-gray-500);
+  color: var(--text-primary);
 }
 
 .zoom-controls button svg {
   width: 16px;
   height: 16px;
-  color: #6b7280;
 }
 
 /* 控制面板 - 左下角两行布局 */
@@ -350,10 +352,11 @@ onUnmounted(() => destroyMap());
   flex-direction: column;
   gap: 8px;
   padding: 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: rgba(17, 17, 19, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-default);
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
 
@@ -367,7 +370,7 @@ onUnmounted(() => destroyMap());
 .row-label {
   font-size: 12px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
@@ -376,22 +379,22 @@ onUnmounted(() => destroyMap());
   height: 32px;
   padding: 0 10px;
   font-size: 12px;
-  font-family: "SF Mono", Consolas, monospace;
-  color: #111827;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
 }
 
 .input-group input:focus {
   outline: none;
-  border-color: #10b981;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--bg-base);
 }
 
 .input-group input::placeholder {
-  color: #9ca3af;
-  font-family: -apple-system, sans-serif;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
 }
 
 .btn-action {
@@ -400,10 +403,10 @@ onUnmounted(() => destroyMap());
   gap: 6px;
   height: 32px;
   padding: 0 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
-  color: #374151;
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -411,25 +414,24 @@ onUnmounted(() => destroyMap());
 }
 
 .btn-action:hover {
-  background: #f0fdf4;
-  border-color: #86efac;
-  color: #166534;
+  background: var(--color-accent-light);
+  border-color: rgba(20, 184, 166, 0.4);
+  color: var(--color-accent);
 }
 
 .btn-action svg {
   width: 14px;
   height: 14px;
-  color: #6b7280;
 }
 
 .btn-action:hover svg {
-  color: #166534;
+  color: var(--color-accent);
 }
 
 /* 第二行 - 数据展示 */
 .panel-row--data {
   padding-top: 8px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--border-default);
 }
 
 .data-item {
@@ -446,36 +448,36 @@ onUnmounted(() => destroyMap());
 .data-item--toggle input {
   width: 14px;
   height: 14px;
-  accent-color: #10b981;
+  accent-color: var(--color-accent);
 }
 
 .data-divider {
   width: 1px;
   height: 20px;
-  background: #e5e7eb;
+  background: var(--border-default);
   margin: 0 8px;
 }
 
 .data-label {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
 .data-value {
   font-size: 13px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .data-value--mono {
-  font-family: "SF Mono", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
 }
 
 .data-hint {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 </style>

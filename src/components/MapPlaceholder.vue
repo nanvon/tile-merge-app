@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f9fafb;
+  background: var(--bg-muted);
 }
 
 .placeholder-content {
@@ -49,10 +49,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
   border-radius: 16px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .placeholder-icon svg {
@@ -67,12 +67,12 @@
 .placeholder-title {
   font-size: 14px;
   font-weight: 500;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .placeholder-hint {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 </style>

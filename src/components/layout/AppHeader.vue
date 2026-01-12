@@ -60,8 +60,8 @@ defineEmits<{
   align-items: center;
   height: 52px;
   padding: 0 16px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-default);
   flex-shrink: 0;
 }
 
@@ -76,11 +76,11 @@ defineEmits<{
   align-items: center;
   gap: 6px;
   height: 32px;
-  padding: 0 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  padding: 0 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
-  color: #374151;
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -88,19 +88,29 @@ defineEmits<{
 }
 
 .header-btn:hover:not(:disabled) {
-  background: #f9fafb;
-  border-color: #d1d5db;
+  background: var(--color-gray-700);
+  border-color: var(--color-gray-500);
+  color: var(--text-primary);
+}
+
+.header-btn:active:not(:disabled) {
+  background: var(--color-gray-600);
+  transform: translateY(1px);
 }
 
 .header-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .header-btn svg {
-  width: 16px;
-  height: 16px;
-  color: #6b7280;
+  width: 15px;
+  height: 15px;
+  opacity: 0.7;
+}
+
+.header-btn:hover:not(:disabled) svg {
+  opacity: 1;
 }
 
 .header-right {

@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "瓦片图合并工具",
+  "productName": "TileMerge",
   "version": "0.1.1",
-  "mainBinaryName": "瓦片图合并工具",
+  "mainBinaryName": "TileMerge",
   "identifier": "com.nanvon.tile-merge",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -28,9 +28,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": [
-      "app"
-    ],
+    "targets": ["app"],
     "macOS": {
       "minimumSystemVersion": "10.13"
     },

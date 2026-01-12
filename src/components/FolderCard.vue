@@ -111,15 +111,15 @@ defineEmits<{
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  background: #ffffff;
-  border: 1px solid #f3f4f6;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
   border-radius: 12px;
   transition: all 150ms ease;
 }
 
 .folder-card:hover {
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-color: var(--color-gray-600);
+  background: var(--bg-elevated);
 }
 
 .folder-info {
@@ -136,9 +136,9 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eff6ff;
+  background: var(--color-accent-light);
   border-radius: 8px;
-  color: #2563eb;
+  color: var(--color-accent);
   flex-shrink: 0;
 }
 
@@ -157,7 +157,7 @@ defineEmits<{
 .folder-name {
   font-size: 13px;
   font-weight: 500;
-  color: #111827;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -165,7 +165,7 @@ defineEmits<{
 
 .folder-meta {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .folder-actions {
@@ -185,7 +185,7 @@ defineEmits<{
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: #9ca3af;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 150ms ease;
 }
@@ -196,8 +196,8 @@ defineEmits<{
 }
 
 .action-btn:hover:not(:disabled) {
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
 }
 
 .action-btn:disabled {
@@ -206,7 +206,7 @@ defineEmits<{
 }
 
 .action-btn--danger:hover:not(:disabled) {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--color-error-light);
+  color: var(--color-error);
 }
 </style>

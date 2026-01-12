@@ -68,7 +68,9 @@ onUnmounted(() => {
 <template>
   <div class="app">
     <AppHeader
-      :disable-reset="mergeManager.isMerging.value"
+      :disable-reset="
+        mergeManager.isMerging.value || foldersManager.isLoading.value
+      "
       @show-help="showHelp = true"
       @reset="resetTask"
     />
@@ -80,18 +82,37 @@ onUnmounted(() => {
           <span class="section-label">源文件</span>
           <button
             class="btn-add"
-            :disabled="mergeManager.isTaskCompleted.value"
+            :disabled="
+              mergeManager.isTaskCompleted.value ||
+              foldersManager.isLoading.value ||
+              mergeManager.isMerging.value
+            "
             @click="foldersManager.selectFolders"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            添加文件夹
+            <template v-if="foldersManager.isLoading.value">
+              <svg
+                class="loading-spinner"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+                <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round" />
+              </svg>
+              添加中...
+            </template>
+            <template v-else>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              添加文件夹
+            </template>
           </button>
         </div>
 
@@ -105,7 +126,11 @@ onUnmounted(() => {
           <FolderList
             :folders="foldersManager.folders.value"
             :previewing-folder="previewManager.previewingFolder.value"
-            :disabled="mergeManager.isTaskCompleted.value"
+            :disabled="
+              mergeManager.isTaskCompleted.value ||
+              foldersManager.isLoading.value ||
+              mergeManager.isMerging.value
+            "
             @preview="previewManager.previewFolder"
             @remove="foldersManager.removeFolder"
             @move-up="(i) => foldersManager.moveFolder(i, -1)"
@@ -117,14 +142,20 @@ onUnmounted(() => {
           <span class="section-label">输出设置</span>
           <OutputSelector
             :output-dir="foldersManager.outputDir.value"
-            :disabled="mergeManager.isTaskCompleted.value"
+            :disabled="
+              mergeManager.isTaskCompleted.value ||
+              foldersManager.isLoading.value ||
+              mergeManager.isMerging.value
+            "
             @select="foldersManager.selectOutputDir"
           />
         </div>
 
         <div class="sidebar-section">
           <MergeButton
-            :can-merge="mergeManager.canMerge.value"
+            :can-merge="
+              mergeManager.canMerge.value && !foldersManager.isLoading.value
+            "
             :is-merging="mergeManager.isMerging.value"
             :progress="mergeManager.progress.value"
             @merge="mergeManager.startMerge"
@@ -183,10 +214,10 @@ onUnmounted(() => {
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-  background: #f9fafb;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-base);
+  font-family: var(--font-sans);
   font-size: 14px;
-  color: #111827;
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -203,14 +234,14 @@ onUnmounted(() => {
   max-width: 300px;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border-right: 1px solid #e5e7eb;
+  background: var(--bg-subtle);
+  border-right: 1px solid var(--border-default);
   overflow: hidden;
 }
 
 .sidebar-section {
   padding: 16px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .sidebar-section:last-child {
@@ -231,14 +262,14 @@ onUnmounted(() => {
   max-width: 350px;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border-right: 1px solid #e5e7eb;
+  background: var(--bg-subtle);
+  border-right: 1px solid var(--border-default);
   overflow: hidden;
 }
 
 .panel-section {
   padding: 16px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .panel-section:last-child {
@@ -256,7 +287,7 @@ onUnmounted(() => {
 .main {
   flex: 1;
   display: flex;
-  background: #f3f4f6;
+  background: var(--bg-muted);
   min-width: 0;
   overflow: hidden;
 }
@@ -265,7 +296,7 @@ onUnmounted(() => {
   display: block;
   font-size: 11px;
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
@@ -289,47 +320,68 @@ onUnmounted(() => {
   padding: 0 8px;
   font-size: 11px;
   font-weight: 500;
-  color: #6b7280;
-  background: #f3f4f6;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
   border-radius: 9999px;
 }
 
-/* 白底深边框按钮 - 参考设计 */
+/* 添加文件夹按钮 - 虚线边框样式 */
 .btn-add {
   width: 100%;
-  height: 40px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ffffff;
-  color: #111827;
+  background: transparent;
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
-  border: 1px solid #e5e7eb;
+  border: 1.5px dashed var(--color-gray-600);
   border-radius: 10px;
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all 200ms ease;
 }
 
-.btn-add:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
+.btn-add:hover:not(:disabled) {
+  background: var(--bg-elevated);
+  border-color: var(--color-accent);
+  border-style: solid;
+  color: var(--color-accent);
 }
 
-.btn-add:active {
-  background: #f3f4f6;
+.btn-add:active:not(:disabled) {
+  background: var(--color-accent-light);
+  transform: scale(0.98);
 }
 
 .btn-add svg {
   width: 16px;
   height: 16px;
-  color: #6b7280;
+  opacity: 0.7;
+}
+
+.btn-add:hover:not(:disabled) svg {
+  opacity: 1;
 }
 
 .btn-add:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* Loading spinner 动画 */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* 任务完成提示 */
@@ -339,11 +391,11 @@ onUnmounted(() => {
   gap: 8px;
   margin-top: 12px;
   padding: 10px 12px;
-  background: #fef3c7;
-  border: 1px solid #fcd34d;
+  background: var(--color-warning-light);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: 8px;
   font-size: 12px;
-  color: #92400e;
+  color: var(--color-warning);
   line-height: 1.4;
 }
 

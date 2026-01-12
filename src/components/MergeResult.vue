@@ -73,8 +73,8 @@ defineEmits<{
 <style scoped>
 .result-card {
   padding: 16px;
-  background: #d1fae5;
-  border: 1px solid #a7f3d0;
+  background: var(--color-success-light);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 16px;
 }
 
@@ -91,7 +91,7 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #059669;
+  background: var(--color-success);
   border-radius: 9999px;
   color: #ffffff;
 }
@@ -110,12 +110,12 @@ defineEmits<{
 .title {
   font-size: 14px;
   font-weight: 600;
-  color: #065f46;
+  color: var(--color-success);
 }
 
 .subtitle {
   font-size: 11px;
-  color: #047857;
+  color: var(--text-secondary);
 }
 
 .result-stats {
@@ -124,7 +124,7 @@ defineEmits<{
   gap: 12px;
   margin-bottom: 16px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-muted);
   border-radius: 12px;
 }
 
@@ -136,12 +136,12 @@ defineEmits<{
   display: block;
   font-size: 16px;
   font-weight: 600;
-  color: #065f46;
+  color: var(--text-primary);
 }
 
 .stat-label {
   font-size: 11px;
-  color: #047857;
+  color: var(--text-muted);
 }
 
 .btn-preview {
@@ -151,18 +151,25 @@ defineEmits<{
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #2563eb;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #0d9488 100%);
   border: none;
   border-radius: 12px;
-  color: #ffffff;
+  color: var(--text-inverse);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 150ms ease;
+  box-shadow: 0 2px 8px var(--color-accent-glow);
 }
 
 .btn-preview:hover {
-  background: #1d4ed8;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-hover) 0%,
+    var(--color-accent) 100%
+  );
+  box-shadow: 0 4px 16px var(--color-accent-glow);
+  transform: translateY(-1px);
 }
 
 .btn-preview svg {

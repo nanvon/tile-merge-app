@@ -80,9 +80,9 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3f4f6;
+  background: var(--bg-elevated);
   border-radius: 16px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .empty-icon svg {
@@ -92,6 +92,6 @@ defineEmits<{
 
 .empty-text {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 </style>

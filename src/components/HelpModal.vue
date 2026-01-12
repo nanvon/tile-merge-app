@@ -152,7 +152,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
               </section>
 
               <section class="help-section">
-                <h3>� 处理顺序</h3>
+                <h3>✨ 处理顺序</h3>
                 <p>按照文件夹列表从上到下的顺序依次处理：</p>
                 <div class="order-diagram">
                   <div class="order-item">
@@ -347,8 +347,8 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
   z-index: 1000;
 }
 
@@ -358,9 +358,10 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
   border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -369,14 +370,14 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-default);
   flex-shrink: 0;
 }
 
 .modal-title {
   font-size: 18px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .btn-close {
@@ -385,17 +386,17 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3f4f6;
+  background: var(--bg-elevated);
   border: none;
   border-radius: 8px;
-  color: #6b7280;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 150ms ease;
 }
 
 .btn-close:hover {
-  background: #e5e7eb;
-  color: #111827;
+  background: var(--color-gray-600);
+  color: var(--text-primary);
 }
 
 .btn-close svg {
@@ -407,8 +408,8 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 .tab-nav {
   display: flex;
   padding: 0 24px;
-  border-bottom: 1px solid #f3f4f6;
-  background: #fafafa;
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-muted);
   flex-shrink: 0;
 }
 
@@ -416,7 +417,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   padding: 12px 16px;
   font-size: 13px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--text-muted);
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
@@ -425,12 +426,12 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 }
 
 .tab-btn:hover {
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .tab-btn.active {
-  color: #10b981;
-  border-bottom-color: #10b981;
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
 }
 
 .modal-body {
@@ -465,13 +466,13 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 .help-section h3 {
   font-size: 15px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 10px;
 }
 
 .help-section p {
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 10px;
 }
@@ -489,29 +490,29 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 }
 
 .tip-box--warning {
-  background: #fef3c7;
-  border: 1px solid #fcd34d;
-  color: #92400e;
+  background: var(--color-warning-light);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--color-warning);
 }
 
 /* 代码块 */
 .code-block {
   padding: 16px;
-  background: #f9fafb;
-  border: 1px solid #f3f4f6;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
   border-radius: 10px;
-  font-family: "SF Mono", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
   overflow-x: auto;
   white-space: pre;
 }
 
 .code-block--formula {
-  background: #eff6ff;
-  border-color: #bfdbfe;
-  color: #1e40af;
+  background: var(--color-accent-light);
+  border-color: rgba(20, 184, 166, 0.3);
+  color: var(--color-accent);
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -529,7 +530,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   padding-left: 20px;
   position: relative;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
@@ -537,7 +538,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   content: "•";
   position: absolute;
   left: 0;
-  color: #10b981;
+  color: var(--color-accent);
 }
 
 /* 顺序图示 */
@@ -547,7 +548,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   align-items: center;
   gap: 8px;
   padding: 16px;
-  background: #f9fafb;
+  background: var(--bg-muted);
   border-radius: 10px;
 }
 
@@ -556,8 +557,8 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
   align-items: center;
   gap: 12px;
   padding: 10px 20px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   width: 200px;
 }
@@ -565,17 +566,17 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 .order-label {
   font-size: 13px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .order-desc {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .order-arrow {
   font-size: 18px;
-  color: #10b981;
+  color: var(--color-accent);
 }
 
 /* 功能表格 */
@@ -586,7 +587,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 }
 
 .feature-table tr {
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .feature-table tr:last-child {
@@ -595,19 +596,19 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 
 .feature-table td {
   padding: 10px 0;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .feature-table .feature-name {
   width: 140px;
   font-weight: 500;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 /* FAQ */
 .faq-item {
   padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .faq-item:last-child {
@@ -616,18 +617,18 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 
 .faq-q {
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 4px !important;
 }
 
 .faq-a {
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 /* 分隔线 */
 .divider {
   border: none;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--border-default);
   margin: 24px 0;
 }
 
@@ -640,11 +641,11 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 }
 
 .info-label {
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .info-value {
-  color: #111827;
+  color: var(--text-primary);
   font-weight: 500;
 }
 
@@ -665,11 +666,11 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 
 .ack-list li::before {
   content: "•";
-  color: #10b981;
+  color: var(--color-accent);
 }
 
 .ack-list a {
-  color: #10b981;
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: 500;
 }
@@ -679,7 +680,7 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 }
 
 .ack-list span {
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 /* 协议列表 */
@@ -695,14 +696,14 @@ const activeTab = ref<"guide" | "principle" | "features" | "about">("guide");
 }
 
 .license-yes {
-  color: #059669;
+  color: var(--color-success);
 }
 
 .license-no {
-  color: #dc2626;
+  color: var(--color-error);
 }
 
 .license-warn {
-  color: #d97706;
+  color: var(--color-warning);
 }
 </style>

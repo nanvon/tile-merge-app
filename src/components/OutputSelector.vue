@@ -61,8 +61,8 @@ function getFolderName(path: string): string {
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
   border-radius: 12px;
   cursor: pointer;
   transition: all 150ms ease;
@@ -70,8 +70,8 @@ function getFolderName(path: string): string {
 }
 
 .output-selector:hover:not(:disabled) {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px #eff6ff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
 }
 
 .output-selector:disabled {
@@ -85,9 +85,9 @@ function getFolderName(path: string): string {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3f4f6;
+  background: var(--bg-elevated);
   border-radius: 8px;
-  color: #6b7280;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 
@@ -106,27 +106,27 @@ function getFolderName(path: string): string {
 
 .selector-label {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .selector-value {
   font-size: 13px;
   font-weight: 500;
-  color: #111827;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .selector-value.is-placeholder {
-  color: #9ca3af;
+  color: var(--text-muted);
   font-weight: 400;
 }
 
 .selector-arrow {
   width: 16px;
   height: 16px;
-  color: #9ca3af;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 </style>

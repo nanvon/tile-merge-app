@@ -43,7 +43,7 @@ npm run tauri dev
 
 ```bash
 # macOS
-npm run build:cn
+npm run build:mac
 
 # Windows（需要在 macOS 上交叉编译，或在 Windows 上构建）
 npm run build:win

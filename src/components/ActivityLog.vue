@@ -73,7 +73,7 @@ watch(
 .log-title {
   font-size: 11px;
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -87,8 +87,8 @@ watch(
   padding: 0 6px;
   font-size: 11px;
   font-weight: 500;
-  color: #6b7280;
-  background: #f3f4f6;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
   border-radius: 9999px;
 }
 
@@ -96,10 +96,10 @@ watch(
   flex: 1;
   overflow-y: auto;
   padding: 12px;
-  background: #ffffff;
-  border: 1px solid #f3f4f6;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
   border-radius: 12px;
-  font-family: "SF Mono", "Fira Code", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
 }
 
@@ -111,25 +111,25 @@ watch(
 }
 
 .log-time {
-  color: #9ca3af;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 
 .log-message {
-  color: #6b7280;
+  color: var(--text-secondary);
   word-break: break-word;
 }
 
 .log-success .log-message {
-  color: #059669;
+  color: var(--color-success);
 }
 
 .log-warning .log-message {
-  color: #d97706;
+  color: var(--color-warning);
 }
 
 .log-error .log-message {
-  color: #dc2626;
+  color: var(--color-error);
 }
 
 .log-empty {
@@ -139,8 +139,8 @@ watch(
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #9ca3af;
-  font-family: "Inter", -apple-system, sans-serif;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
   padding: 24px;
 }
 

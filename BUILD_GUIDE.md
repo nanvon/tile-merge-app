@@ -1,11 +1,11 @@
-# 📦 瓦片图合并工具构建指南
+# 📦 TileMerge 构建指南
 
 ## 构建产物
 
-| 平台          | 命令                | 产物                 |
-| ------------- | ------------------- | -------------------- |
-| macOS (M1)    | `npm run build:mac` | `瓦片图合并工具.app` |
-| Windows (x64) | `npm run build:win` | `瓦片图合并工具.exe` |
+| 平台          | 命令                | 产物            |
+| ------------- | ------------------- | --------------- |
+| macOS (M1)    | `npm run build:mac` | `TileMerge.app` |
+| Windows (x64) | `npm run build:win` | `TileMerge.exe` |
 
 ---
 
@@ -20,7 +20,7 @@ npm run build:mac
 **产物位置：**
 
 ```text
-src-tauri/target/aarch64-apple-darwin/release/bundle/macos/瓦片图合并工具.app
+src-tauri/target/aarch64-apple-darwin/release/bundle/macos/TileMerge.app
 ```
 
 ---
@@ -51,7 +51,7 @@ npm run build:win
 **产物位置：**
 
 ```text
-src-tauri/target/x86_64-pc-windows-msvc/release/瓦片图合并工具.exe
+src-tauri/target/x86_64-pc-windows-msvc/release/TileMerge.exe
 ```
 
 ---
@@ -67,8 +67,8 @@ git push origin v0.1.0
 
 构建完成后，产物会自动上传到 GitHub Release：
 
-- macOS: `瓦片图合并工具_v0.1.0_aarch64.zip`（包含 .app）
-- Windows: `瓦片图合并工具.exe`
+- macOS: `TileMerge_v0.1.0_macos_arm64.zip`（包含 .app）
+- Windows: `TileMerge_v0.1.0_windows_x64.exe`
 
 ---
 
@@ -78,7 +78,9 @@ git push origin v0.1.0
 
 | 配置项           | 说明                     |
 | ---------------- | ------------------------ |
-| `productName`    | 应用中文名               |
+| `productName`    | 应用名（需为英文）       |
 | `version`        | 版本号                   |
 | `mainBinaryName` | 可执行文件名             |
 | `bundle.targets` | 打包目标（当前仅 "app"） |
+
+> **注意**: 由于 Tauri 在 macOS 上的兼容性问题，`productName` 和 `mainBinaryName` 必须使用英文。应用窗口标题可以使用中文。

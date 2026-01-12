@@ -64,48 +64,78 @@ defineEmits<{
   gap: 8px;
 }
 
-/* 白底深边框样式 */
+/* 开始合并按钮 - 发光渐变样式 */
 .btn-merge {
   width: 100%;
-  height: 40px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #0d9488 100%);
+  border: none;
   border-radius: 10px;
-  color: #111827;
+  color: var(--text-inverse);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all 200ms ease;
+  box-shadow: 0 2px 12px var(--color-accent-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-merge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .btn-merge:hover:not(:disabled) {
-  background: #f9fafb;
-  border-color: #d1d5db;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-hover) 0%,
+    var(--color-accent) 100%
+  );
+  box-shadow: 0 4px 20px var(--color-accent-glow);
+  transform: translateY(-1px);
 }
 
 .btn-merge:active:not(:disabled) {
-  background: #f3f4f6;
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 2px 8px var(--color-accent-glow);
 }
 
 .btn-merge:disabled {
-  opacity: 0.5;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  box-shadow: none;
   cursor: not-allowed;
 }
 
 .btn-merge.is-merging {
-  background: #f3f4f6;
-  border-color: #d1d5db;
-  color: #6b7280;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  box-shadow: none;
+}
+
+.btn-merge.is-merging::before {
+  display: none;
 }
 
 .btn-merge svg {
   width: 16px;
   height: 16px;
-  color: #6b7280;
 }
 
 .spinner {
@@ -122,16 +152,21 @@ defineEmits<{
 }
 
 .progress-track {
-  height: 3px;
-  background: #e5e7eb;
+  height: 4px;
+  background: var(--bg-elevated);
   border-radius: 9999px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: #10b981;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-accent-hover) 100%
+  );
   border-radius: 9999px;
   transition: width 200ms ease;
+  box-shadow: 0 0 8px var(--color-accent-glow);
 }
 </style>

@@ -42,7 +42,7 @@ jobs:
       # macOS Build: .app only
       - name: Build macOS
         if: matrix.platform == 'macos-latest'
-        run: tauri build --target ${{ matrix.target }}
+        run: npm run tauri build -- --target ${{ matrix.target }}
 
       # Windows Build: portable exe only
       - name: Build Windows
@@ -54,7 +54,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           cd src-tauri/target/${{ matrix.target }}/release/bundle/macos
-          zip -r "瓦片图合并工具_${{ github.ref_name }}_aarch64.zip" *.app
+          zip -r "TileMerge_${{ github.ref_name }}_macos_arm64.zip" TileMerge.app
 
       - name: Upload macOS artifact
         if: matrix.platform == 'macos-latest'
@@ -62,9 +62,14 @@ jobs:
         with:
           files: src-tauri/target/${{ matrix.target }}/release/bundle/macos/*.zip
 
-      # Upload Windows portable exe
+      # Rename and upload Windows portable exe
+      - name: Rename Windows exe
+        if: matrix.platform == 'windows-latest'
+        run: |
+          mv src-tauri/target/${{ matrix.target }}/release/TileMerge.exe "src-tauri/target/${{ matrix.target }}/release/TileMerge_${{ github.ref_name }}_windows_x64.exe"
+
       - name: Upload Windows artifact
         if: matrix.platform == 'windows-latest'
         uses: softprops/action-gh-release@v1
         with:
-          files: src-tauri/target/${{ matrix.target }}/release/*.exe
+          files: src-tauri/target/${{ matrix.target }}/release/TileMerge_*.exe

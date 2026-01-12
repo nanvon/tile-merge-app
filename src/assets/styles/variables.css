@@ -1,52 +1,56 @@
 /**
- * Design System - Modern SaaS Enterprise UI
- * 简约、专业、高级感的设计系统
+ * Design System - Dark Theme for GIS Tool
+ * 专业的深色主题设计系统，适合地图类应用
  */
 
 :root {
-  /* ===== 色彩系统 - 极简中性色 + 单一强调色 ===== */
+  /* ===== 色彩系统 - 深色主题 + 青绿强调色 ===== */
 
-  /* 强调色 - 仅使用蓝色系 */
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-accent-light: #eff6ff;
-  --color-accent-muted: #93c5fd;
+  /* 强调色 - GIS 专业青绿色系 */
+  --color-accent: #14b8a6;
+  --color-accent-hover: #2dd4bf;
+  --color-accent-light: rgba(20, 184, 166, 0.15);
+  --color-accent-muted: #5eead4;
+  --color-accent-glow: rgba(20, 184, 166, 0.4);
 
-  /* 中性色 - 层次丰富的灰度 */
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  /* 暗色中性色 - 多层次深色 */
+  --color-gray-950: #0a0a0b;
+  --color-gray-900: #111113;
+  --color-gray-850: #161618;
+  --color-gray-800: #1c1c1f;
+  --color-gray-700: #27272a;
+  --color-gray-600: #3f3f46;
+  --color-gray-500: #52525b;
+  --color-gray-400: #71717a;
+  --color-gray-300: #a1a1aa;
+  --color-gray-200: #d4d4d8;
+  --color-gray-100: #e4e4e7;
 
-  /* 语义色 - 仅用于状态提示 */
-  --color-success: #059669;
-  --color-success-light: #d1fae5;
-  --color-warning: #d97706;
-  --color-warning-light: #fef3c7;
-  --color-error: #dc2626;
-  --color-error-light: #fee2e2;
+  /* 语义色 - 用于状态提示 */
+  --color-success: #10b981;
+  --color-success-light: rgba(16, 185, 129, 0.15);
+  --color-warning: #f59e0b;
+  --color-warning-light: rgba(245, 158, 11, 0.15);
+  --color-error: #ef4444;
+  --color-error-light: rgba(239, 68, 68, 0.15);
 
-  /* 背景色 */
-  --bg-base: #ffffff;
-  --bg-subtle: #f9fafb;
-  --bg-muted: #f3f4f6;
-  --bg-elevated: #ffffff;
+  /* 背景色 - 深色层次 */
+  --bg-base: #111113;
+  --bg-subtle: #161618;
+  --bg-muted: #1c1c1f;
+  --bg-elevated: #27272a;
+  --bg-card: #1c1c1f;
 
   /* 文字色 */
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
-  --text-inverse: #ffffff;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-inverse: #111113;
 
   /* 边框 */
-  --border-default: #e5e7eb;
-  --border-muted: #f3f4f6;
+  --border-default: #27272a;
+  --border-muted: #1c1c1f;
+  --border-subtle: rgba(255, 255, 255, 0.06);
 
   /* ===== 间距 - 8px 基准网格 ===== */
   --space-1: 4px;
@@ -65,15 +69,16 @@
   --radius-xl: 16px;
   --radius-full: 9999px;
 
-  /* ===== 阴影 - 微妙的层次感 ===== */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06),
-    0 2px 4px -1px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06),
-    0 4px 6px -2px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08),
-    0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  /* ===== 阴影 - 深色主题专用 ===== */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+    0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px var(--color-accent-glow);
 
   /* ===== 动画 ===== */
   --transition-fast: 150ms ease;
