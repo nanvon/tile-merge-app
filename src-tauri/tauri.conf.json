@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "TileMerge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "mainBinaryName": "TileMerge",
   "identifier": "com.nanvon.tile-merge",
   "build": {
@@ -28,7 +28,9 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["app"],
+    "targets": [
+      "app"
+    ],
     "macOS": {
       "minimumSystemVersion": "10.13"
     },
