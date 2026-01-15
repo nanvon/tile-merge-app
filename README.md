@@ -1,4 +1,4 @@
-# Tile Merge
+# Tile Merge App - The Ultimate Tool for Merging Map Tiles
 
 [![中文文档](https://img.shields.io/badge/文档-中文版-blue)](./README_CN.md)
 [![Build Guide](https://img.shields.io/badge/Guide-Build-green)](./README_BUILD_GUIDE.md)

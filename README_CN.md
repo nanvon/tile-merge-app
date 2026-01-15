@@ -1,4 +1,4 @@
-# 瓦片地图合并工具 (Tile Merge)
+# 瓦片地图合并工具 - 合并地图瓦片的终极工具
 
 [![English](https://img.shields.io/badge/Docs-English-blue)](./README.md)
 [![构建指南](https://img.shields.io/badge/指南-构建-green)](./README_BUILD_GUIDE_CN.md)
