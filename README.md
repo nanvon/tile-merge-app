@@ -1,219 +1,222 @@
-# 瓦片地图合并工具 (Tile Merge)
+# Tile Merge
 
-一个基于 **Tauri + Vue 3 + TypeScript** 的桌面应用，用于合并多个瓦片地图文件夹。
+[![中文文档](https://img.shields.io/badge/文档-中文版-blue)](./README_CN.md)
+[![Build Guide](https://img.shields.io/badge/Guide-Build-green)](./README_BUILD_GUIDE.md)
 
-## ✨ 功能特性
+A desktop application built with **Tauri + Vue 3 + TypeScript** for merging multiple tile map folders.
 
-- 📁 **多文件夹合并** - 支持添加多个瓦片文件夹，按顺序合并
-- 🖼️ **智能叠加** - 相同位置的瓦片自动进行 Alpha 混合
-- 🗺️ **实时预览** - 内置地图预览，支持高德卫星底图
-- 📍 **坐标定位** - 输入经纬度快速跳转，点击地图获取坐标
-- ⚡ **高性能** - Rust 后端 + Rayon 并行处理，快速合并大量瓦片
-- 💻 **跨平台** - 支持 macOS 和 Windows
+## ✨ Features
 
-## 📸 截图
+- 📁 **Multi-folder Merging** - Add multiple tile folders and merge them in order
+- 🖼️ **Smart Overlay** - Tiles at the same position are automatically alpha-blended
+- 🗺️ **Live Preview** - Built-in map preview with Amap satellite basemap support
+- 📍 **Coordinate Navigation** - Quick jump by entering coordinates, click map to get location
+- ⚡ **High Performance** - Rust backend + Rayon parallel processing for fast merging
+- 💻 **Cross-platform** - Supports macOS and Windows
 
-![应用截图](public/应用.png)
+## 📸 Screenshot
 
-## 🚀 快速开始
+![Application Screenshot](public/应用.png)
 
-### 环境要求
+## 🚀 Quick Start
+
+### Requirements
 
 - [Node.js](https://nodejs.org/) 18+
 - [Rust](https://www.rust-lang.org/tools/install) 1.70+
-- [pnpm](https://pnpm.io/) 或 npm
+- [pnpm](https://pnpm.io/) or npm
 
-### 安装依赖
+### Install Dependencies
 
 ```bash
-# 安装前端依赖
+# Install frontend dependencies
 npm install
 
-# 安装 Tauri CLI（如果未安装）
+# Install Tauri CLI (if not installed)
 npm install -g @tauri-apps/cli
 ```
 
-### 开发模式
+### Development Mode
 
 ```bash
 npm run tauri dev
 ```
 
-### 构建发布版本
+### Build for Production
 
 ```bash
 # macOS
 npm run build:mac
 
-# Windows（需要在 macOS 上交叉编译，或在 Windows 上构建）
+# Windows (cross-compile on macOS, or build on Windows)
 npm run build:win
 ```
 
-## 📖 使用指南
+## 📖 User Guide
 
-### 操作流程
+### Workflow
 
-1. **添加文件夹** - 点击「添加文件夹」选择包含瓦片的目录
-2. **调整顺序** - 使用 ⬆️⬇️ 按钮调整合并顺序（列表靠后的文件夹叠加在上层）
-3. **选择输出目录** - 设置合并结果的保存位置
-4. **开始合并** - 点击「开始合并」等待完成
-5. **预览结果** - 合并完成后点击「预览结果」在地图上查看效果
-6. **新建任务** - 如需开始新的合并任务，点击左上角「新建任务」
+1. **Add Folders** - Click "Add Folder" to select directories containing tiles
+2. **Adjust Order** - Use ⬆️⬇️ buttons to adjust merge order (folders later in the list overlay on top)
+3. **Select Output Directory** - Set the save location for merged results
+4. **Start Merge** - Click "Start Merge" and wait for completion
+5. **Preview Results** - After merging, click "Preview Results" to view on the map
+6. **New Task** - To start a new merge task, click "New Task" in the top left
 
-### 📁 瓦片文件夹格式
+### 📁 Tile Folder Format
 
-瓦片文件夹应包含以层级数字命名的子目录（XYZ 格式）：
+Tile folders should contain subdirectories named by zoom level (XYZ format):
 
-> ⚠️ **重要：仅支持 PNG 格式的瓦片文件**，不支持 JPG、WebP 等其他格式。
+> ⚠️ **Important: Only PNG format tile files are supported**, JPG, WebP and other formats are not supported.
 
 ```text
-瓦片文件夹/
-├── {z}/            ← 层级（zoom level）
-│   ├── {x}/        ← X 坐标（列号）
-│   │   ├── {y}.png ← Y 坐标（行号）
+tile-folder/
+├── {z}/            ← Zoom level
+│   ├── {x}/        ← X coordinate (column)
+│   │   ├── {y}.png ← Y coordinate (row)
 
-示例：10/827/373.png
-表示层级10、X坐标827、Y坐标373的瓦片
+Example: 10/827/373.png
+Represents tile at zoom level 10, X coordinate 827, Y coordinate 373
 ```
 
-### 🔄 合并原理
+### 🔄 Merge Principle
 
-#### 合并逻辑
+#### Merge Logic
 
-对于每个瓦片位置（z/x/y），程序按以下规则处理：
+For each tile position (z/x/y), the program processes as follows:
 
-- **首次处理**：直接复制到输出目录
-- **后续处理**：如果输出目录已存在该位置的瓦片，则进行 Alpha 混合叠加
+- **First occurrence**: Directly copied to output directory
+- **Subsequent occurrences**: If tile exists at that position in output, performs alpha blending overlay
 
-#### Alpha 混合算法
+#### Alpha Blending Algorithm
 
-程序逐像素进行透明度混合：
+The program performs per-pixel transparency blending:
 
 ```
-新像素 = 上层像素 × α + 下层像素 × (1 - α)
+new_pixel = top_pixel × α + bottom_pixel × (1 - α)
 ```
 
-- **α = 1（完全不透明）**：完全覆盖下层
-- **0 < α < 1（半透明）**：与下层混合产生过渡效果
-- **α = 0（完全透明）**：不影响下层
+- **α = 1 (fully opaque)**: Completely covers bottom layer
+- **0 < α < 1 (semi-transparent)**: Blends with bottom layer for transition effect
+- **α = 0 (fully transparent)**: Does not affect bottom layer
 
-#### 处理顺序
+#### Processing Order
 
-按照文件夹列表从上到下的顺序依次处理：
+Processed in order from top to bottom of the folder list:
 
-- 先处理的文件夹作为「底层」
-- 后处理的文件夹「叠加」在上层
+- Folders processed first serve as the "bottom layer"
+- Folders processed later "overlay" on top
 
-### 🖱️ 功能说明
+### 🖱️ Feature Description
 
-#### 文件管理区
+#### File Management Area
 
-| 操作           | 说明                           |
-| -------------- | ------------------------------ |
-| 添加文件夹     | 选择瓦片目录，自动扫描瓦片数量 |
-| 预览 👁️        | 在地图上查看该文件夹的瓦片     |
-| 上移/下移 ⬆️⬇️ | 调整合并顺序                   |
-| 移除 ❌        | 从列表中删除                   |
+| Action            | Description                                   |
+| ----------------- | --------------------------------------------- |
+| Add Folder        | Select tile directory, auto-scan tile count   |
+| Preview 👁️        | View this folder's tiles on the map           |
+| Move Up/Down ⬆️⬇️ | Adjust merge order                            |
+| Remove ❌         | Remove from list                              |
 
-#### 地图预览区
+#### Map Preview Area
 
-| 功能     | 说明                            |
-| -------- | ------------------------------- |
-| 定位跳转 | 输入经纬度并点击跳转按钮        |
-| 缩放控制 | 点击放大/缩小按钮或使用鼠标滚轮 |
-| 获取坐标 | 点击地图任意位置获取经纬度      |
-| 底图开关 | 可关闭卫星底图只看瓦片效果      |
+| Feature          | Description                                       |
+| ---------------- | ------------------------------------------------- |
+| Location Jump    | Enter coordinates and click jump button           |
+| Zoom Control     | Click zoom in/out buttons or use mouse wheel      |
+| Get Coordinates  | Click anywhere on map to get coordinates          |
+| Basemap Toggle   | Turn off satellite basemap to view tiles only     |
 
-#### 快捷键
+#### Keyboard Shortcuts
 
-| 快捷键 | 功能                       |
-| ------ | -------------------------- |
-| F12    | 打开开发者工具             |
-| Enter  | 在坐标输入框按回车快速跳转 |
+| Shortcut | Function                                    |
+| -------- | ------------------------------------------- |
+| F12      | Open developer tools                        |
+| Enter    | Quick jump when in coordinate input field   |
 
-### ❓ 常见问题
+### ❓ FAQ
 
-**Q: 为什么预览看不到瓦片？**
+**Q: Why can't I see tiles in preview?**
 
-A: 请检查：
+A: Please check:
 
-1. 瓦片坐标是否与地图当前位置对应
-2. 层级是否与当前缩放级别匹配
-3. 可关闭卫星底图查看纯瓦片效果
+1. Whether tile coordinates correspond to current map position
+2. Whether zoom level matches current zoom level
+3. Try turning off satellite basemap to view pure tile effect
 
-**Q: 合并后部分瓦片缺失？**
+**Q: Some tiles are missing after merge?**
 
-A: 确保所有源文件夹的目录结构正确为 z/x/y.png 格式。
+A: Ensure all source folders have correct directory structure in z/x/y.png format.
 
-**Q: 如何控制叠加效果？**
+**Q: How to control overlay effect?**
 
-A: 通过调整文件夹顺序。列表中靠后的文件夹会覆盖在上层。
+A: By adjusting folder order. Folders later in the list will overlay on top.
 
-## 🏗️ 技术架构
+## 🏗️ Technical Architecture
 
 ```
 tile-merge-app/
-├── src/                    # Vue 前端
-│   ├── api/               # Tauri 命令调用封装
-│   ├── components/        # Vue 组件
+├── src/                    # Vue frontend
+│   ├── api/               # Tauri command call wrappers
+│   ├── components/        # Vue components
 │   ├── composables/       # Vue Composables
-│   └── types.ts           # TypeScript 类型定义
+│   └── types.ts           # TypeScript type definitions
 │
-└── src-tauri/             # Rust 后端
+└── src-tauri/             # Rust backend
     └── src/
-        ├── lib.rs         # Tauri 命令入口
-        ├── merger.rs      # 瓦片合并核心逻辑
-        └── tile_server.rs # 本地瓦片 HTTP 服务
+        ├── lib.rs         # Tauri command entry
+        ├── merger.rs      # Tile merge core logic
+        └── tile_server.rs # Local tile HTTP server
 ```
 
-### 核心依赖
+### Core Dependencies
 
-| 层级 | 技术栈                                        |
-| ---- | --------------------------------------------- |
-| 框架 | [Tauri 2.0](https://tauri.app/)               |
-| 前端 | Vue 3 + TypeScript + Vite                     |
-| 地图 | [Leaflet](https://leafletjs.com/)             |
-| 图像 | [image-rs](https://github.com/image-rs/image) |
-| 并行 | [Rayon](https://github.com/rayon-rs/rayon)    |
+| Layer     | Tech Stack                                    |
+| --------- | --------------------------------------------- |
+| Framework | [Tauri 2.0](https://tauri.app/)               |
+| Frontend  | Vue 3 + TypeScript + Vite                     |
+| Map       | [Leaflet](https://leafletjs.com/)             |
+| Image     | [image-rs](https://github.com/image-rs/image) |
+| Parallel  | [Rayon](https://github.com/rayon-rs/rayon)    |
 
-## 🛠️ 开发
+## 🛠️ Development
 
-### 推荐 IDE 配置
+### Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/)
-- [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 插件
-- [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) 插件
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) 插件
+- [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension
+- [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) extension
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) extension
 
-### 常用命令
+### Common Commands
 
 ```bash
-# 开发模式
+# Development mode
 npm run tauri dev
 
-# 类型检查
+# Type check
 npx vue-tsc --noEmit
 
-# 仅构建前端
+# Build frontend only
 npm run build
 ```
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-核心合并逻辑参考以下开源项目：
+Core merge logic references the following open source projects:
 
 - [merge_tile_sets.pl](https://github.com/jlmcgraw/aviationCharts/blob/master/merge_tile_sets.pl) by jlmcgraw
-- [Stack Exchange GIS](https://gis.stackexchange.com/questions/247717) - ImageMagick 合并思路
+- [Stack Exchange GIS](https://gis.stackexchange.com/questions/247717) - ImageMagick merge approach
 
 ## 📄 License
 
-本项目采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 协议。
+This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-- ✅ 可自由使用、复制、修改
-- ✅ 需注明原作者
-- ❌ **禁止商业用途**
-- ⚠️ 衍生作品须使用相同协议
+- ✅ Free to use, copy, and modify
+- ✅ Attribution required
+- ❌ **Commercial use prohibited**
+- ⚠️ Derivative works must use the same license
 
-## 👤 作者
+## 👤 Author
 
 nanvon

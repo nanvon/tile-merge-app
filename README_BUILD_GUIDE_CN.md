@@ -1,5 +1,8 @@
 # 📦 TileMerge 构建指南
 
+[![English](https://img.shields.io/badge/Docs-English-blue)](./README_BUILD_GUIDE.md)
+[![返回主页](https://img.shields.io/badge/返回-主页-lightgrey)](./README_CN.md)
+
 ## 构建产物
 
 | 平台          | 命令                | 产物            |
